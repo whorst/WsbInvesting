@@ -1,0 +1,11 @@
+WsbPaperTraderEnv\Scripts\activate
+
+Databases
+-------------
+https://djangoadventures.com/how-to-integrate-django-with-existing-database/
+https://medium.com/@omaraamir19966/connect-django-with-mysql-database-f946d0f6f9e3
+
+Task Scheduling
+-------------------
+https://medium.com/@kevin.michael.horan/scheduling-tasks-in-django-with-the-advanced-python-scheduler-663f17e868e6#:~:
+text=Scheduling%20Tasks%20in%20Django%20with%20the%20Advanced%20Python%20Scheduler,-Kevin%20Horan&text=Scheduling%20tasks%20for%20the%20future,intervals%20are%20just%20as%20essential.
