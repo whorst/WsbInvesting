@@ -1,4 +1,5 @@
 import alpaca_trade_api as tradeapi
+from RedditScraperService import FileWriting
 from RedditScraperService.database import databaseTransactions
 
 
@@ -11,11 +12,6 @@ def isStockShortable(ticker):
         return apiCallIsShortable
     return bool(resultInDatabase)
 
-def writeFailureToFile(msg):
-    outFile = open("resources/files/closePositionFailure", "a")
-    outFile.write(msg+"\n\n")
-    outFile.close()
-
 def openPosition(positionObject):
     api = getRestApiInterface()
     apiInverse = getRestApiInterfaceInverse()
@@ -25,9 +21,14 @@ def openPosition(positionObject):
     newId = largestId+1
     try:
         if(isStockShortable(positionObject.ticker)):
-            openNormalPositions(api, newId, positionObject)
-            openInversePositions(apiInverse, newId, positionObject)
-            insertPositionObjectIntoDB(newId, positionObject)
+            try:
+                openNormalPositions(api, newId, positionObject)
+                openInversePositions(apiInverse, newId, positionObject)
+            except Exception as e:
+                # Kafka Topic?
+                print("Position not opened with alpaca with exception " + str(e))
+            else:
+                insertPositionObjectIntoDB(newId, positionObject)
     except Exception as e:
         print("Opening Position Failed for ID:" + str(newId) + " For reason" + str(e))
         pass
@@ -55,7 +56,7 @@ def closePositions(closePositionList):
             databaseTransactions.removePositionFromDatabase(closePositionObject)
         except Exception as e:
             print("Closing Position Failed for ID:" + str(closePositionObject.id) + " For reason" + str(e))
-            writeFailureToFile(str(e))
+            FileWriting.writeClosePositionFailureToFile(str(e))
             pass
 
 def insertPositionObjectIntoDB(newId, positionObject):

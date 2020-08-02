@@ -2,11 +2,13 @@ import re
 import time
 
 import praw
+
 from RedditScraperService.database.databaseTransactions import getValidTickersInDatabase
 from RedditScraperService.database.databaseTransactions import getRecordsWithMatchingExpiryFromDatabase
 from RedditScraperService.objects.validPositionObject import validPosition
 from RedditScraperService.paperTrading import paperTradingUtilities
 from RedditScraperService.timeUtilities import timeUtilities
+from RedditScraperService import FileWriting
 
 
 def isStrikePriceRidiculouslyHighOrLow(strikePrice, ticker):
@@ -16,10 +18,7 @@ def isStrikePriceRidiculouslyHighOrLow(strikePrice, ticker):
     isRidiculouslyHighOrLow = ((strikePrice > actualPriceUpperBound) or (strikePrice < actualPriceLowerBound))
     if(isRidiculouslyHighOrLow):
         comment = (f"Ticker: {ticker}, Actual Price: {actualPrice}, Upper: {actualPriceUpperBound}, Lower {actualPriceLowerBound}, Stated Price: {strikePrice}")
-        outFile = open("resources/files/ridiculouslyHighOrLowReason", "a")
-        outFile.write(comment)
-        outFile.write("\n\n")
-        outFile.close()
+        FileWriting.writeRidiculouslyHighOrLowToFile(comment)
     return isRidiculouslyHighOrLow
 
 def isPutReferenceInComment(comment):
@@ -106,13 +105,7 @@ def printValidPositions(comment, occurencesOfPrice, occurencesOfStrikeDate, occu
     while (i < length):
         newPosition = validPosition(occurencesOfTicker[i], occurencesOfPrice[i], occurencesOfStrikeDate[i])
         validPositions.append(newPosition)
-        outFile = open("resources/files/commentFileOut", "a")
-        outFile.write("\n\n")
-        outFile.write(comment)
-        outFile.write("\n")
-        outFile.write(newPosition.__str__())
-        outFile.write("\n\n")
-        outFile.close()
+        FileWriting.writeValidPositionsToFile(comment, newPosition)
         i += 1
 
 
