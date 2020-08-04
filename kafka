@@ -1,10 +1,10 @@
 -Start Server
 cd C:\kafka_2.12-2.5.0\bin\windows
-zookeeper-server-start.bat ../../config/zookeeper.properties
-kafka-server-start.bat ../../config/server.properties
+ zookeeper-server-start.bat ../../config/zookeeper.properties
+ kafka-server-start.bat ../../config/server.properties
 
--Create a Topic
-kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
+ ///Create a Topic
+ kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
 
 -Send Message
 kafka-console-producer.bat --bootstrap-server localhost:9092 --topic test
