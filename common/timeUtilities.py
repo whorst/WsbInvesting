@@ -5,4 +5,3 @@ def getCurrentDayEst():
 
 def getCurrentHourEst():
     return  ((datetime.datetime.utcnow()+datetime.timedelta(hours=-4)).strftime('%H'))
-

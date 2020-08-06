@@ -7,7 +7,7 @@ from RedditScraperService.database.databaseTransactions import getValidTickersIn
 from RedditScraperService.database.databaseTransactions import getRecordsWithMatchingExpiryFromDatabase
 from RedditScraperService.objects.validPositionObject import validPosition
 from RedditScraperService.paperTrading import paperTradingUtilities
-from RedditScraperService.timeUtilities import timeUtilities
+from common import timeUtilities
 from RedditScraperService import FileWriting
 
 
