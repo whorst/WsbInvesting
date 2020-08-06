@@ -19,7 +19,6 @@ Ui/*.ntvs*
 Ui/*.njsproj
 Ui/*.sln
 Ui/*.sw?
-Ui/package.json
 Ui/package-lock.json
 Ui/.idea
 Ui/src/assets

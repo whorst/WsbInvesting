@@ -1,4 +1,4 @@
-from ApiService.common.models import Numberid
+from common.models import Numberid
 from rest_framework import serializers
 
 
